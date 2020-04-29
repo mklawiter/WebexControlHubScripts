@@ -21,9 +21,9 @@ import urllib
 import time
 
 #############  Definitions  #############
-csvFilePath = ''
-csvFileName = ''
-accessToken = ''
+csvFilePath = '~/Downloads/'
+csvFileName = 'exported_file.csv'
+accessToken = 'YmRjNzc2NTMtMmQ-b354008fac9e'
 loopCount = 0
 deletedCount = 0
 errorCount = 0
