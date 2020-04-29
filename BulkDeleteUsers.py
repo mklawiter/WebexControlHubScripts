@@ -21,9 +21,9 @@ import urllib
 import time
 
 #############  Definitions  #############
-csvFilePath = '~/Downloads'
-csvFileName = 'exported_file.csv'
-accessToken = 'YmRjNzc2NTMtMmQ-b354008fac9e'
+csvFilePath = ''
+csvFileName = ''
+accessToken = ''
 loopCount = 0
 deletedCount = 0
 errorCount = 0
@@ -35,14 +35,19 @@ getMyDetailsURL = 'https://api.ciscospark.com/v1/people/me'             # Webex 
 
 #############   User Input and Validation  #############
 print('This script will require three inputs:')
-print('    1. A file path (folder location) on your device where the input CSV file is located\n    2. A file name for the input CSV file\n    3. An access token used to authorize the API calls - You can get yours from https://developer.webex.com/docs/api/getting-started\n')
-validationSuccess = 0
-# Loop to allow the user to input a file path and file name until successful.
+print('    1. A file path (folder location) on your device where the input CSV file is located\n    2. A file name for the input CSV file\n    3. An access token used to authorize the API calls - You can get yours from https://developer.webex.com/docs/api/getting-started')
+print('(If you changed these variables in the script itself, these values will not be validated and will be used instead.)\n')
+# Skip user input if user edited the variables in the script itself
+if csvFilePath :
+    validationSuccess = 0
+else :
+    validationSuccess = 1
+# Otherwise loop to allow the user to input a file path and file name until successful.
 while (validationSuccess == 0):
-    inputFilePath = input('Please enter the file path you wish to use (ex: C:\Scripts\ on Windows or /Scripts/ on Mac):  ')
+    inputFilePath = input('Please enter the file path you wish to use (ex: C:\Scripts\ on Windows or ~/Scripts/ on Mac):  ')
     if inputFilePath :
         csvFilePath = inputFilePath
-    inputFileName = input('Please enter the file name of the input CSV file you wish to use (ex: Users.csv):  ')
+    inputFileName = input('Please enter the file name of the input CSV file you wish to use (ex: exported_file.csv):  ')
     if inputFileName :
         csvFileName = inputFileName
     # Validate the Input CSV file exists.
@@ -51,8 +56,12 @@ while (validationSuccess == 0):
         print('Please check the File Path and File Name you entered above and try again below.\n')
     else:
         validationSuccess = 1
-validationSuccess = 0
-# Loop to allow the user to input an access token until successful.
+# Skip user input if user edited the variables in the script itself
+if accessToken :
+    validationSuccess = 0
+else :
+    validationSuccess = 1
+# Otherwise loop to allow the user to input an access token until successful.
 while (validationSuccess == 0):
     inputAccessToken = input('Please enter your access token:  ')
     if inputAccessToken :
