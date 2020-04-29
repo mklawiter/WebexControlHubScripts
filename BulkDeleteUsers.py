@@ -3,7 +3,8 @@
     
 This script is designed to delete users from a Control Hub organization based on an INPUT CSV file with user emails.
 The script is designed to be executed by users with "full admin" role in the org.
-Output file called Errors.csv is generated at the end in the same directory as the input CSV file (will be empty file if script runs successfully without errors)
+Output file called Errors.csv is generated at the end in the same directory as the input CSV file 
+(Errors.csv will be empty if the script runs successfully without errors)
 Tested with Python version 3.6
 The script is limited to only allow 100 users per input file.
 If you need to delete more than 100 users then you need to split users into multiple CSV input files or modify the script.
@@ -21,8 +22,8 @@ import urllib
 import time
 
 #############  Definitions  #############
-csvFilePath = ''                                                        # Update this value to skip command line input
-accessToken = ''                                                        # Update this value to skip command line input
+csvFilePath = ''                                                        # Update this value to skip entering command line input
+accessToken = ''                                                        # Update this value to skip entering command line input
 loopCount = 0
 deletedCount = 0
 errorCount = 0
@@ -36,7 +37,7 @@ getMyDetailsURL = 'https://api.ciscospark.com/v1/people/me'             # Webex 
 print('This script requires two inputs:')
 print('    1. The full file path on your device for an input CSV file\n       (ex: C:\Scripts\exported_file.csv on Windows or ~/Scripts/exported_file.csv on Mac)\n')
 print('    2. An access token used to authorize the API calls\n       (You can get yours from https://developer.webex.com/docs/api/getting-started)')
-print('    If you changed these variables in the script itself, it will attempt to validate those values first\n')
+print('    If you changed these variables in the script itself, it will attempt to validate and use those values instead\n')
 validationSuccess = 0
 # Loop to allow the user to input a file path and file name until successful.
 while (validationSuccess == 0):
@@ -164,7 +165,14 @@ print()
 
 """
 Copyright 2020 <Cisco Systems inc>
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
+to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
