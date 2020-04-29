@@ -39,9 +39,9 @@ print('    1. A file path (folder location) on your device where the input CSV f
 print('(If you changed these variables in the script itself, these values will not be validated and will be used instead.)\n')
 # Skip user input if user edited the variables in the script itself
 if csvFilePath :
-    validationSuccess = 0
-else :
     validationSuccess = 1
+else :
+    validationSuccess = 0
 # Otherwise loop to allow the user to input a file path and file name until successful.
 while (validationSuccess == 0):
     csvFilePath = input('Please enter the file path you wish to use (ex: C:\Scripts\ on Windows or ~/Scripts/ on Mac):  ')
@@ -54,9 +54,9 @@ while (validationSuccess == 0):
         validationSuccess = 1
 # Skip user input if user edited the variables in the script itself
 if accessToken :
-    validationSuccess = 0
-else :
     validationSuccess = 1
+else :
+    validationSuccess = 0
 # Otherwise loop to allow the user to input an access token until successful.
 while (validationSuccess == 0):
     accessToken = input('Please enter your access token:  ')
