@@ -34,13 +34,13 @@ getMyDetailsURL = 'https://api.ciscospark.com/v1/people/me'             # Webex 
 
 #############   User Input and Validation  #############
 print('This script requires two inputs:')
-print('    1. A complete file path on your device for the input CSV file\n       (ex: C:\Scripts\exported_file.csv on Windows or ~/Scripts/exported_file.csv on Mac)\n    2. An access token used to authorize the API calls\n       (You can get yours from https://developer.webex.com/docs/api/getting-started)')
+print('    1. A full file path on your device for the input CSV file\n       (ex: C:\Scripts\exported_file.csv on Windows or ~/Scripts/exported_file.csv on Mac)\n    2. An access token used to authorize the API calls\n       (You can get yours from https://developer.webex.com/docs/api/getting-started)')
 print('    If you changed these variables in the script itself, it will attempt to validate those values first\n')
 validationSuccess = 0
 # Loop to allow the user to input a file path and file name until successful.
 while (validationSuccess == 0):
     if not csvFilePath :
-        csvFilePath = input('Please enter the complete file path of the CSV file you wish to use:  ')
+        csvFilePath = input('Please enter the full file path of the CSV file you wish to use:  ')
     # Validate the Input CSV file exists.
     csvFilePath = os.path.expanduser(csvFilePath)
     if( not os.path.isfile(csvFilePath) ):
