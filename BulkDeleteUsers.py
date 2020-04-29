@@ -10,7 +10,7 @@ If you need to delete more than 100 users then you need to split users into mult
 
 """
 __author__ = "Matt Klawiter"
-__date__ = "2020/4/28"
+__date__ = "2020/4/29"
 
 #############  Imports  #############
 import requests
@@ -21,7 +21,7 @@ import urllib
 import time
 
 #############  Definitions  #############
-csvFilePath = '~/Downloads/'
+csvFilePath = '/Downloads/'
 csvFileName = 'exported_file.csv'
 accessToken = 'YmRjNzc2NTMtMmQ-b354008fac9e'
 loopCount = 0
@@ -39,8 +39,12 @@ print('    1. A file path (folder location) on your device where the input CSV f
 validationSuccess = 0
 # Loop to allow the user to input a file path and file name until successful.
 while (validationSuccess == 0):
-    csvFilePath = input('Please enter the file path you wish to use (ex: C:\Scripts\ on Windows or /Scripts/ on Mac):  ')
-    csvFileName = input('Please enter the file name of the input CSV file you wish to use (ex: Users.csv):  ')
+    inputFilePath = input('Please enter the file path you wish to use (ex: C:\Scripts\ on Windows or /Scripts/ on Mac):  ')
+    if inputFilePath :
+        csvFilePath = inputFilePath
+    inputFileName = input('Please enter the file name of the input CSV file you wish to use (ex: Users.csv):  ')
+    if inputFileName :
+        csvFileName = inputFileName
     # Validate the Input CSV file exists.
     if( not os.path.isfile(csvFilePath + csvFileName) ):
         print('No Input CSV file found on your device at: ' + csvFilePath + csvFileName)
@@ -50,7 +54,9 @@ while (validationSuccess == 0):
 validationSuccess = 0
 # Loop to allow the user to input an access token until successful.
 while (validationSuccess == 0):
-    accessToken = input('Please enter your access token:  ')
+    inputAccessToken = input('Please enter your access token:  ')
+    if inputAccessToken :
+        accessToken = inputAccessToken
     # Get People API Call to validate access token.
     validationResponse = requests.get(getMyDetailsURL,
                 headers={'Authorization': 'Bearer ' + accessToken})
