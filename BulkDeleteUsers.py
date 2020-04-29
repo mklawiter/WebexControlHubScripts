@@ -10,7 +10,7 @@ If you need to delete more than 100 users then you need to split users into mult
 
 """
 __author__ = "Matt Klawiter"
-__date__ = "2020/4/17"
+__date__ = "2020/4/28"
 
 #############  Imports  #############
 import requests
