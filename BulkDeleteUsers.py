@@ -21,7 +21,7 @@ import urllib
 import time
 
 #############  Definitions  #############
-csvFilePath = '/Downloads/'
+csvFilePath = '~/Downloads'
 csvFileName = 'exported_file.csv'
 accessToken = 'YmRjNzc2NTMtMmQ-b354008fac9e'
 loopCount = 0
@@ -46,8 +46,8 @@ while (validationSuccess == 0):
     if inputFileName :
         csvFileName = inputFileName
     # Validate the Input CSV file exists.
-    if( not os.path.isfile(csvFilePath + csvFileName) ):
-        print('No Input CSV file found on your device at: ' + csvFilePath + csvFileName)
+    if( not os.path.isfile(os.path.join(os.path.expanduser(csvFilePath), csvFileName)) ):
+        print('No Input CSV file found on your device at: ' + os.path.join(os.path.expanduser(csvFilePath), csvFileName))
         print('Please check the File Path and File Name you entered above and try again below.\n')
     else:
         validationSuccess = 1
@@ -65,7 +65,8 @@ while (validationSuccess == 0):
         print('Access Token was invalid.  Please check your access token was entered correctly and hasn\'t expired and try again below.\n')
     else:
         validationSuccess = 1
-print('File path, file name, and Access Token have validated succesfully.\n')
+print('Input file found at: ', os.path.join(os.path.expanduser(csvFilePath), csvFileName))
+print('Input file and Access Token have validated succesfully.\n')
 #############   End User Input  #############
 
 #############   Read in CSV File of Users to Delete  #############
@@ -75,7 +76,7 @@ print('File path, file name, and Access Token have validated succesfully.\n')
 # Very little validation is done of the input file.  Deleting fields will break this script.
 # IMPORTANT:  THE FILE SHOULD ONLY HAVE ENTRIES OF USERS THAT SHOULD BE DELETED
 #
-with open(csvFilePath + csvFileName, 'r') as csvFile:
+with open(os.path.join(os.path.expanduser(csvFilePath), csvFileName), 'r') as csvFile:
     readCSV = csv.reader(csvFile, delimiter=',', quotechar='"')
     next(readCSV, None) #skip header line
     for row in readCSV:
@@ -100,7 +101,7 @@ print('Delete in progress.  Please wait, the script takes 2 - 3 seconds per user
 #############  End User Confirmation  #############
 
 # Create CSV file for error tracking
-with open(csvFilePath + 'Errors.csv','w') as csvfile:
+with open(os.path.join(os.path.expanduser(csvFilePath), 'Errors.csv'),'w') as csvfile:
     csvfile.write('User Email,API Call Response Code,Response Message\n')
 
 #############   Loop to Delete Users from the CSV file  #############
@@ -124,7 +125,7 @@ while (loopCount < totalUsers):
         else:
             print('    Error: User not found for email', str(userEmails[loopCount]))
             errorMessage = 'No user found with that email.'
-        with open(csvFilePath + 'Errors.csv','a') as csvfile:
+        with open(os.path.join(os.path.expanduser(csvFilePath), 'Errors.csv'),'a') as csvfile:
             csvfile.write(str(userEmails[loopCount]) + ',' + str(response.status_code) + ',' + errorMessage + '\n')
         errorCount += 1
     else:
@@ -145,7 +146,7 @@ while (loopCount < totalUsers):
                 # This means something went wrong.
                 print('    Error: Delete User API call error', str(deleteResponse.status_code), 'on user', str(userEmails[loopCount]))
                 errorMessage = deleteResponse.json()['message']
-                with open(csvFilePath + 'Errors.csv','a') as csvfile:
+                with open(os.path.join(os.path.expanduser(csvFilePath), 'Errors.csv'),'a') as csvfile:
                     csvfile.write(str(userEmails[loopCount]) + ',' + str(deleteResponse.status_code) + ',' + errorMessage + '\n')
                 errorCount += 1
             else:
