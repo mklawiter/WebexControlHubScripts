@@ -1,15 +1,16 @@
 #!/usr/bin/env python
-""" Python Script to Download all Recordings from a WebEx site
+""" Test Python Script to Download all Recordings from a WebEx site (Site Administration)
     
 This script is intended to download all recordings from a WebEx site for the purposes of backing up, transferring, or distributing recordings by authorized personnel only.
     
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 """
 __author__ = "Matt Klawiter"
-__contact__ = "mklawite@cisco.com"
-__copyright__ = "Copyright 2018 by Matt Klawiter, Cisco Systems, Inc"
 __date__ = "2018/2/28"
-__version__ = "2.2"
 
 #############  Imports  #############
 import requests
@@ -178,5 +179,3 @@ while (x < totalRecordings):
 #############  End Loop to download recordings  #############
 
 print('Download complete.  Finished at Recording #', str(x), '\n')
-
-
