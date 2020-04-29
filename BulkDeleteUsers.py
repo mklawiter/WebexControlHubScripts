@@ -3,7 +3,7 @@
     
 This script is designed to delete users from a Control Hub organization based on an INPUT CSV file with user emails.
 The script is designed to be executed by users with "full admin" role in the org.
-Output file called Errors.csv is generated at the end (will be empty file if script runs successfully without errors)
+Output file called Errors.csv is generated at the end in the same directory as the input CSV file (will be empty file if script runs successfully without errors)
 Tested with Python version 3.6
 The script is limited to only allow 100 users per input file.
 If you need to delete more than 100 users then you need to split users into multiple CSV input files or modify the script.
@@ -22,7 +22,6 @@ import time
 
 #############  Definitions  #############
 csvFilePath = ''                                                        # Update this value to skip command line input
-csvFileName = ''                                                        # Update this value to skip command line input
 accessToken = ''                                                        # Update this value to skip command line input
 loopCount = 0
 deletedCount = 0
@@ -34,23 +33,24 @@ deletePersonURL = 'https://api.ciscospark.com/v1/people/'               # Webex 
 getMyDetailsURL = 'https://api.ciscospark.com/v1/people/me'             # Webex CH Get My Details API URL
 
 #############   User Input and Validation  #############
-print('This script will require three inputs:')
-print('    1. A file path (folder location) on your device where the input CSV file is located\n    2. A file name for the input CSV file\n    3. An access token used to authorize the API calls - You can get yours from https://developer.webex.com/docs/api/getting-started')
-print('(If you changed these variables in the script itself, it will attempt to validate those values first)\n')
+print('This script will require two inputs:')
+print('    1. A file path on your device for the input CSV file\n    2. An access token used to authorize the API calls - You can get yours from https://developer.webex.com/docs/api/getting-started')
+print('(If you changed these variables in the script itself it will attempt to use those values first)\n')
 validationSuccess = 0
 # Loop to allow the user to input a file path and file name until successful.
 while (validationSuccess == 0):
     if not csvFilePath :
-        csvFilePath = input('Please enter the file path you wish to use (ex: C:\Scripts\ on Windows or ~/Scripts/ on Mac):  ')
-        csvFileName = input('Please enter the file name of the input CSV file you wish to use (ex: exported_file.csv):  ')
+        csvFilePath = input('Please enter the file path you wish to use (ex: C:\Scripts\exported_file.csv on Windows or ~/Scripts/exported_file.csv on Mac):  ')
     # Validate the Input CSV file exists.
-    if( not os.path.isfile(os.path.join(os.path.expanduser(csvFilePath), csvFileName)) ):
-        print('No Input CSV file found on your device at: ' + os.path.join(os.path.expanduser(csvFilePath), csvFileName))
+    csvFilePath = os.path.expanduser(csvFilePath)
+    if( not os.path.isfile(csvFilePath) ):
+        print('No Input CSV file found on your device at: ' + os.path.expanduser(csvFilePath))
         print('Please check the File Path and File Name you entered above and try again below.\n')
         csvFilePath = ''
     else:
         validationSuccess = 1
-print('Input file found at: ', os.path.join(os.path.expanduser(csvFilePath), csvFileName), '\n')
+print('Input file found at: ', csvFilePath, '\n')
+errorFilePath = os.path.join(os.path.dirname(csvFilePath),'Errors.csv')
 validationSuccess = 0
 # Loop to allow the user to input an access token until successful.
 while (validationSuccess == 0):
@@ -75,7 +75,7 @@ print('Input file and Access Token have validated succesfully.\n')
 # Very little validation is done of the input file.  Deleting fields will break this script.
 # IMPORTANT:  THE FILE SHOULD ONLY HAVE ENTRIES OF USERS THAT SHOULD BE DELETED
 #
-with open(os.path.join(os.path.expanduser(csvFilePath), csvFileName), 'r') as csvFile:
+with open(csvFilePath, 'r') as csvFile:
     readCSV = csv.reader(csvFile, delimiter=',', quotechar='"')
     next(readCSV, None) #skip header line
     for row in readCSV:
@@ -100,7 +100,7 @@ print('Delete in progress.  Please wait, the script takes 2 - 3 seconds per user
 #############  End User Confirmation  #############
 
 # Create CSV file for error tracking
-with open(os.path.join(os.path.expanduser(csvFilePath), 'Errors.csv'),'w') as csvfile:
+with open(errorFilePath,'w') as csvfile:
     csvfile.write('User Email,API Call Response Code,Response Message\n')
 
 #############   Loop to Delete Users from the CSV file  #############
@@ -124,7 +124,7 @@ while (loopCount < totalUsers):
         else:
             print('    Error: User not found for email', str(userEmails[loopCount]))
             errorMessage = 'No user found with that email.'
-        with open(os.path.join(os.path.expanduser(csvFilePath), 'Errors.csv'),'a') as csvfile:
+        with open(errorFilePath,'a') as csvfile:
             csvfile.write(str(userEmails[loopCount]) + ',' + str(response.status_code) + ',' + errorMessage + '\n')
         errorCount += 1
     else:
@@ -145,7 +145,7 @@ while (loopCount < totalUsers):
                 # This means something went wrong.
                 print('    Error: Delete User API call error', str(deleteResponse.status_code), 'on user', str(userEmails[loopCount]))
                 errorMessage = deleteResponse.json()['message']
-                with open(os.path.join(os.path.expanduser(csvFilePath), 'Errors.csv'),'a') as csvfile:
+                with open(errorFilePath,'a') as csvfile:
                     csvfile.write(str(userEmails[loopCount]) + ',' + str(deleteResponse.status_code) + ',' + errorMessage + '\n')
                 errorCount += 1
             else:
@@ -163,11 +163,7 @@ print()
 
 """
 Copyright 2020 <Cisco Systems inc>
-
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
 """
