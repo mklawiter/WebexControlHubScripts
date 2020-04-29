@@ -36,7 +36,7 @@ getMyDetailsURL = 'https://api.ciscospark.com/v1/people/me'             # Webex 
 #############   User Input and Validation  #############
 print('This script will require three inputs:')
 print('    1. A file path (folder location) on your device where the input CSV file is located\n    2. A file name for the input CSV file\n    3. An access token used to authorize the API calls - You can get yours from https://developer.webex.com/docs/api/getting-started')
-print('(If you changed these variables in the script itself it will attempt to use those values first)\n')
+print('(If you changed these variables in the script itself, it will attempt to validate those values first)\n')
 validationSuccess = 0
 # Loop to allow the user to input a file path and file name until successful.
 while (validationSuccess == 0):
