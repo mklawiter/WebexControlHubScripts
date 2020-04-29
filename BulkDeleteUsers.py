@@ -44,12 +44,8 @@ else :
     validationSuccess = 1
 # Otherwise loop to allow the user to input a file path and file name until successful.
 while (validationSuccess == 0):
-    inputFilePath = input('Please enter the file path you wish to use (ex: C:\Scripts\ on Windows or ~/Scripts/ on Mac):  ')
-    if inputFilePath :
-        csvFilePath = inputFilePath
-    inputFileName = input('Please enter the file name of the input CSV file you wish to use (ex: exported_file.csv):  ')
-    if inputFileName :
-        csvFileName = inputFileName
+    csvFilePath = input('Please enter the file path you wish to use (ex: C:\Scripts\ on Windows or ~/Scripts/ on Mac):  ')
+    csvFileName = input('Please enter the file name of the input CSV file you wish to use (ex: exported_file.csv):  ')
     # Validate the Input CSV file exists.
     if( not os.path.isfile(os.path.join(os.path.expanduser(csvFilePath), csvFileName)) ):
         print('No Input CSV file found on your device at: ' + os.path.join(os.path.expanduser(csvFilePath), csvFileName))
@@ -63,9 +59,7 @@ else :
     validationSuccess = 1
 # Otherwise loop to allow the user to input an access token until successful.
 while (validationSuccess == 0):
-    inputAccessToken = input('Please enter your access token:  ')
-    if inputAccessToken :
-        accessToken = inputAccessToken
+    accessToken = input('Please enter your access token:  ')
     # Get People API Call to validate access token.
     validationResponse = requests.get(getMyDetailsURL,
                 headers={'Authorization': 'Bearer ' + accessToken})
