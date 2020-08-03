@@ -9,6 +9,13 @@ Tested with Python version 3.6
 The script is limited to only allow 100 users per input file.
 If you need to delete more than 100 users then you need to split users into multiple CSV input files or modify the script.
 
+The CSV file should be created using the format from the CSV export from Control Hub.
+- Keep the rows of users that should be deleted and REMOVE USERS who should NOT be deleted
+- Do not delete the header line, or the first user to delete will be skipped
+- Very little validation is done of the input file.  Deleting fields can break this script.
+- (The fourth field of each row is the email of the user that will be deleted)
+- IMPORTANT:  THE FILE SHOULD ONLY HAVE ENTRIES OF USERS THAT SHOULD BE DELETED
+
 """
 __author__ = "Matt Klawiter"
 __date__ = "2020/4/29"
