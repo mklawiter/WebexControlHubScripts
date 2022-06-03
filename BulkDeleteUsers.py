@@ -36,9 +36,9 @@ deletedCount = 0
 errorCount = 0
 userEmails = []
 errorMessage = ''
-listPeopleURL = 'https://api.ciscospark.com/v1/people'                  # Webex CH List People API URL
-deletePersonURL = 'https://api.ciscospark.com/v1/people/'               # Webex CH Delete Person API URL
-getMyDetailsURL = 'https://api.ciscospark.com/v1/people/me'             # Webex CH Get My Details API URL
+listPeopleURL = 'https://webexapis.com/v1/people'                  # Webex CH List People API URL
+deletePersonURL = 'https://webexapis.com/v1/people/'               # Webex CH Delete Person API URL
+getMyDetailsURL = 'https://webexapis.com/v1/people/me'             # Webex CH Get My Details API URL
 
 #############   User Input and Validation  #############
 print('This script requires two inputs:')
